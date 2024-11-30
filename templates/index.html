@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Data Viewer</title>
+</head>
+<script>
+    setInterval(async () => {
+        try {
+            // Fetch the latest data from the /data endpoint
+            const response = await fetch("/data");
+            if (response.ok) {
+                const result = await response.json();
+                document.getElementById("data").textContent = result.data;
+            } else {
+                console.error("Error fetching data:", response.status);
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }, 1000); // Update every second
+</script>
+
+<body>
+    <h1>Live Data Viewer</h1>
+    <div>
+        <h2>Latest Data:</h2>
+        <p id="data">Loading...</p>
+    </div>
+
+</body>
+
+</html>
