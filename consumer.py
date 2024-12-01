@@ -16,8 +16,8 @@ def main():
             data = client_socket.recv(1024)
             if not data:
                 break
-            n1 = json.loads(data.decode('utf-8'))
-            print(f"Consumer: Received {n1}")
+            sent_data = json.loads(data.decode('utf-8'))
+            print(f"Consumer: Received {sent_data}")
     except KeyboardInterrupt:
         print("Consumer: Shutting down.")
     finally:

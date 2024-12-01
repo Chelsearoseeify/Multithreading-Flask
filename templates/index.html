@@ -13,7 +13,7 @@
             const response = await fetch("/data");
             if (response.ok) {
                 const result = await response.json();
-                document.getElementById("data").textContent = result.data;
+                document.getElementById("data").textContent = result.data.n1;
             } else {
                 console.error("Error fetching data:", response.status);
             }

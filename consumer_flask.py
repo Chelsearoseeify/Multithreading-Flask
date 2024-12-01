@@ -3,6 +3,7 @@ import socket
 import threading
 import time
 from multiprocessing import Manager
+import json
 
 def create_app():
     app = Flask(__name__)
@@ -35,7 +36,7 @@ def create_app():
                 if not data:
                     break
                 # Update the shared dictionary with the new data
-                shared_state["latest_data"] = data.decode('utf-8')
+                shared_state["latest_data"] = json.loads(data.decode('utf-8'))
                 print(f"Consumer: Received {shared_state['latest_data']}")
         except KeyboardInterrupt:
             print("Consumer: Shutting down.")

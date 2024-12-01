@@ -113,23 +113,28 @@ def run_timer(conn):
 
 def timer_interrupt(conn):
     global numbers,t,minute,n1,n2,index, index_mean,flag,phase,index_post
+    data_to_send = {"n1": 0, "n2": 0, "index": 0}   
     #recognize_numbers(result)
     #print("Timer interrupt eseguito")
     if flag==3:
       #print('siamo nell IF')
       n1 = [int(num) for num in re.findall(r'\((\d+)\)', numbers_old[0])]
-      #n1 = [random.randint(1, 100), random.randint(1, 100), 6]
-
       n2= [int(num) for num in re.findall(r'\((\d+)\)', numbers_old[1])]
-      print('n1= ',n1)
-      print('n2= ',n2)
       
-      json_data = json.dumps(n1)  # Serialize the list to a JSON string
-      conn.sendall(json_data.encode('utf-8'))  # Send the JSON string as bytes
-      print(f"Producer: Sent {n1}")
       
+     
       if len(n1)>0 and len(n2)>0:
-          if n1[0]>0 and n2[0]>0:
+        if n1[0]>0 and n2[0]>0:
+            data_to_send['n1']= n1[0]
+            #n1 = [random.randint(1, 100), random.randint(1, 100), 6]
+            data_to_send['n2']= n2[0]
+            data_to_send['index']= n2[0]/n1[0]
+            print('n1= ',n1[0])
+            print('n2= ',n2[0])
+      
+            json_data = json.dumps(data_to_send)  # Serialize the list to a JSON string
+            conn.sendall(json_data.encode('utf-8'))  # Send the JSON string as bytes
+            print(f"Producer: Sent {data_to_send}")
             index.append(n2[0]/n1[0])
 
       t=t+1
