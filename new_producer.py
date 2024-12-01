@@ -15,7 +15,7 @@ pytesseract.pytesseract.tesseract_cmd = '/opt/homebrew/bin/tesseract'
 
 
 # Cattura video dalla videocamera
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # Variabili globali
 coordinate_schermo=[]
@@ -118,7 +118,7 @@ def timer_interrupt(conn):
     if flag==3:
       #print('siamo nell IF')
       n1 = [int(num) for num in re.findall(r'\((\d+)\)', numbers_old[0])]
-      n1 = [random.randint(1, 100), random.randint(1, 100), 6]
+      #n1 = [random.randint(1, 100), random.randint(1, 100), 6]
 
       n2= [int(num) for num in re.findall(r'\((\d+)\)', numbers_old[1])]
       print('n1= ',n1)
