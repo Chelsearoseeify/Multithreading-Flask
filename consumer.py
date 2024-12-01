@@ -1,5 +1,6 @@
 # consumer.py
 import socket
+import json
 
 def main():
     host = '127.0.0.1'
@@ -15,7 +16,8 @@ def main():
             data = client_socket.recv(1024)
             if not data:
                 break
-            print(f"Consumer: Received {data.decode('utf-8')}")
+            n1 = json.loads(data.decode('utf-8'))
+            print(f"Consumer: Received {n1}")
     except KeyboardInterrupt:
         print("Consumer: Shutting down.")
     finally:
